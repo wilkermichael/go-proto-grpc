@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package protobuf;
+option go_package = "internal/protobuf";
+
+message Task {
+    string text = 1;
+    bool done = 2;
+}
+
+// 
+//message TaskList{
+ //   repeated Task tasks = 1;
+//}
+
+//  service Tasks{
+//      rpc List() returns() {}
+//  }
