@@ -9,10 +9,10 @@ import (
 	"net"
 	"os"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/wilkermichael/go-proto-grpc/internal/protobuf"
 	"golang.org/x/net/context"
-	grpc "google.golang.org/grpc"
+	"google.golang.org/grpc"
+	"google.golang.org/protobuf/proto"
 )
 
 func main() {
@@ -26,7 +26,9 @@ func main() {
 	log.Fatal(srv.Serve(l))
 }
 
-type taskServer struct{}
+type taskServer struct {
+	protobuf.UnimplementedTasksServer
+}
 
 type length int64
 
