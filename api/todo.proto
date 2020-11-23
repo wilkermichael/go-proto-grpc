@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package protobuf;
+package protobuf.v1;
+option go_package = "internal/protobuf_v1";
 
 message Task {
     string text = 1;

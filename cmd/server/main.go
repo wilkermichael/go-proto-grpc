@@ -9,10 +9,10 @@ import (
 	"net"
 	"os"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/wilkermichael/go-proto-grpc/internal/protobuf"
 	"golang.org/x/net/context"
 	grpc "google.golang.org/grpc"
+	"google.golang.org/protobuf/proto"
 )
 
 func main() {
