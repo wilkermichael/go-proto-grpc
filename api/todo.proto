@@ -1,18 +1,26 @@
 syntax = "proto3";
 
 package protobuf;
-option go_package = "internal/protobuf";
 
 message Task {
     string text = 1;
     bool done = 2;
 }
 
-// 
-//message TaskList{
- //   repeated Task tasks = 1;
-//}
+// Provides a list of tasks
+message TaskList{
+   repeated Task tasks = 1;
+}
 
-//  service Tasks{
-//      rpc List() returns() {}
-//  }
+message Text{
+    string text = 1;
+}
+
+// Defines a message void that is completely empty
+message Void{}
+
+// Defines and interface for acquiring a list of tasks
+service Tasks{
+    rpc List(Void) returns(TaskList) {}
+    rpc Add(Text) returns(Task) {}
+}
