@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	protobuf "github.com/wilkermichael/go-proto-grpc/internal/protobuf_v1"
+	todo "github.com/wilkermichael/go-proto-grpc/internal/todo_v1"
 	"google.golang.org/grpc"
 )
 
@@ -23,7 +23,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "could not connect to backend: %v\n", err)
 		os.Exit(1)
 	}
-	client := protobuf.NewTasksClient(conn)
+	client := todo.NewTasksClient(conn)
 
 	switch cmd := flag.Arg(0); cmd {
 	case "list":
@@ -39,8 +39,8 @@ func main() {
 	}
 }
 
-func add(ctx context.Context, client protobuf.TasksClient, text string) error {
-	_, err := client.Add(ctx, &protobuf.Text{Text: text})
+func add(ctx context.Context, client todo.TasksClient, text string) error {
+	_, err := client.Add(ctx, &todo.Text{Text: text})
 	if err != nil {
 		return fmt.Errorf("could not add task in the backend: %v", err)
 	}
@@ -49,8 +49,8 @@ func add(ctx context.Context, client protobuf.TasksClient, text string) error {
 	return nil
 }
 
-func list(ctx context.Context, client protobuf.TasksClient) error {
-	l, err := client.List(ctx, &protobuf.Void{})
+func list(ctx context.Context, client todo.TasksClient) error {
+	l, err := client.List(ctx, &todo.Void{})
 	if err != nil {
 		return fmt.Errorf("could not fetch tasks: %v", err)
 	}
