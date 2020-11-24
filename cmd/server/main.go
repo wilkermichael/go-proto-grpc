@@ -9,7 +9,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/wilkermichael/go-proto-grpc/internal/protobuf"
+	todo "github.com/wilkermichael/go-proto-grpc/internal/todo_v1"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/proto"
@@ -18,7 +18,7 @@ import (
 func main() {
 	srv := grpc.NewServer()
 	var tasks taskServer
-	protobuf.RegisterTasksServer(srv, tasks)
+	todo.RegisterTasksServer(srv, tasks)
 	l, err := net.Listen("tcp", ":8888")
 	if err != nil {
 		log.Fatalf("could not listen to :8888: %v", err)
@@ -27,7 +27,7 @@ func main() {
 }
 
 type taskServer struct {
-	protobuf.UnimplementedTasksServer
+	todo.UnimplementedTasksServer
 }
 
 type length int64
@@ -39,8 +39,8 @@ const (
 
 var endianness = binary.LittleEndian
 
-func (taskServer) Add(ctx context.Context, text *protobuf.Text) (*protobuf.Task, error) {
-	task := &protobuf.Task{
+func (taskServer) Add(ctx context.Context, text *todo.Text) (*todo.Task, error) {
+	task := &todo.Task{
 		Text: text.Text,
 		Done: false,
 	}
@@ -69,13 +69,13 @@ func (taskServer) Add(ctx context.Context, text *protobuf.Text) (*protobuf.Task,
 	return task, nil
 }
 
-func (taskServer) List(ctx context.Context, void *protobuf.Void) (*protobuf.TaskList, error) {
+func (taskServer) List(ctx context.Context, void *todo.Void) (*todo.TaskList, error) {
 	b, err := ioutil.ReadFile(dbPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not read %s: %v", dbPath, err)
 	}
 
-	var tasks protobuf.TaskList
+	var tasks todo.TaskList
 	for {
 		if len(b) == 0 {
 			return &tasks, nil
@@ -89,7 +89,7 @@ func (taskServer) List(ctx context.Context, void *protobuf.Void) (*protobuf.Task
 		}
 		b = b[sizeOfLength:]
 
-		var task protobuf.Task
+		var task todo.Task
 		if err := proto.Unmarshal(b[:l], &task); err != nil {
 			return nil, fmt.Errorf("could not read task: %v", err)
 		}
