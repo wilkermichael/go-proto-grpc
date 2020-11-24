@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/wilkermichael/go-proto-grpc/internal/protobuf"
+	protobuf "github.com/wilkermichael/go-proto-grpc/internal/protobuf_v1"
 	"google.golang.org/grpc"
 )
 

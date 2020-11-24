@@ -9,7 +9,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/wilkermichael/go-proto-grpc/internal/protobuf"
+	protobuf "github.com/wilkermichael/go-proto-grpc/internal/protobuf_v1"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/proto"
